@@ -1,0 +1,135 @@
+<div class="modal-header bg-primary p-3">
+    <h5 class="modal-title text-uppercase text-white" id="createTaskLabel">{{ submSubTask ? 'Add Sub-Task' : 'Create
+        Ticket' }}</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" id="createTaskBtn-close"
+        aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body bg-light text-primary">
+    <div id="task-error-msg" class="alert alert-danger py-2"></div>
+
+    <form class="form bg-white mb-3 me-3" autocomplete="off" action="" id="creattask-form" (ngSubmit)="SubmitTicket()"
+        [formGroup]="ticketForm">
+        <input type="hidden" id="taskid-input" class="form-control">
+        <div class="mb-3 me-3 ms-3 pt-3">
+            <label for="task-title-input" class="form-label ">Ticket Title</label>
+            <input type="text" id="task-title-input" class="form-control" placeholder="Enter ticket title"
+                formControlName="title" [ngClass]="{ 'is-invalid': submitted && form['title'].errors }">
+            <div *ngIf="submitted && form['title'].errors" class="invalid-feedback" align="left">
+                <div *ngIf="form['title'].errors['required']">Ticket Title is required</div>
+            </div>
+        </div>
+        <div class="mb-3 me-3 ms-3">
+            <label for="task-description" class="form-label">Ticket Description</label>
+            <textarea class="form-control " id="task-description" placeholder="Enter ticket description"
+                formControlName="description"
+                [ngClass]="{ 'is-invalid': submitted && form['description'].errors }"></textarea>
+            <div *ngIf="submitted && form['description'].errors" class="invalid-feedback" align="left">
+                <div *ngIf="form['description'].errors['required']">Ticket Description is required</div>
+            </div>
+        </div><!--end col-->
+        <div *ngIf="!submSubTask" class="mb-3 me-3 ms-3">
+            <label for="ticket_type-input" class="form-label ">Ticket Type</label>
+            <ng-select class="rounded-pill" placeholder="Select type" appearance="outline" [searchable]="false"
+                [clearable]="false" labelForId="heroId" formControlName="ticket_type"
+                [ngClass]="{ 'is-invalid': submitted && form['ticket_type'].errors }">
+                <ng-option value="Epic">
+                    <i class="bx bxs-spreadsheet text-info align-bottom " style="font-size: 16px;"></i><span>
+                        Epic</span>
+                </ng-option>
+                <ng-option value="Task">
+                    <i class="bx bx-task text-primary align-bottom " style="font-size: 16px;"></i><span> Task</span>
+                </ng-option>
+                <ng-option value="Bug">
+                    <i class="bx bx-bug text-danger align-bottom " style="font-size: 16px;"></i> <span> Bug</span>
+                </ng-option>
+            </ng-select>
+            <div *ngIf="submitted && form['ticket_type'].errors" class="invalid-feedback" align="left">
+                <div *ngIf="form['ticket_type'].errors['required']">Ticket Title is required</div>
+            </div>
+        </div>
+        <div class="mb-3 me-3 ms-3">
+
+            <label for="assigned_to-field" class="form-label">Assigned to</label>
+            <ng-select class="ng-select rounded-pill" placeholder="Select user" appearance="outline"
+                [searchable]="true" [clearable]="true" labelForId="heroId" formControlName="assigned_to"
+                [ngClass]="{ 'is-invalid': submitted && form['assigned_to'].errors }">
+                <ng-option *ngFor="let data of users" value="{{data.id}}">
+                    <ul class="link-inline mb-0 p-0">
+                        <li class="list-inline-item me-4">
+                            <a class="rounded-circle bg-primary text-light text-uppercase"
+                                style="width: 26px; height: 26px; display: flex; justify-content: center; align-items: center;">
+                                {{ getUserProfile(data) }}
+                            </a>
+                        </li>
+                        <li class="list-inline-item me-2">
+                            {{data.username}}</li>
+                    </ul>
+                </ng-option></ng-select>
+            <div *ngIf="submitted && form['assigned_to'].errors" class="invalid-feedback" align="left">
+                <div *ngIf="form['assigned_to'].errors['required']">Assigned_to is required</div>
+            </div>
+        </div>
+        <div class="mb-3 me-3 ms-3 ">
+            <label for="priority-field" class="form-label">Priority</label>
+            <ng-select class="ng-select bg-light" placeholder="Select priority" appearance="underline"
+                [searchable]="false" [clearable]="false" labelForId="heroId" formControlName="priority">
+                <ng-option value="High">
+                    <span><i class="bx bxs-flag-alt text-danger align-bottom " style="font-size: 16px;"></i>
+                        High</span>
+                </ng-option>
+                <ng-option value="Medium">
+                    <span><i class="bx bxs-flag-alt text-warning align-bottom " style="font-size: 16px;"></i>
+                        Medium</span>
+                </ng-option>
+                <ng-option value="Low">
+                    <span><i class="bx bxs-flag-alt text-success align-bottom " style="font-size: 16px;"></i>
+                        Low</span>
+                </ng-option>
+            </ng-select>
+            <div *ngIf="submitted && form['priority'].errors" class="invalid-feedback" align="left">
+                <div *ngIf="form['priority'].errors['required']">Priority is required</div>
+            </div>
+        </div>
+        <div class="form-group me-3 ms-3 pb-4">
+            <label>Estimation Duration Days/Hours/Minutes</label>
+            <div class="input-group">
+                <span class="align-bottom">D:</span>
+                <!-- ... other form fields ... -->
+                <div class="input-step step-secondary col-lg-3 me-3 ms-2">
+                    <button type="button" class="minus" (click)="decrementDays()">–</button>
+                    <input type="number" class="product-quantity"
+                        [value]="ticketForm.get('estimationDurationMinutes.estimation_duration_days')?.value"
+                        [min]="0" [max]="30" readonly>
+                    <button type="button" class="plus" (click)="incrementDays()">+</button>
+                </div>
+                <label class="align-bottom">H:</label>
+                <div class="input-step step-secondary col-lg-3 me-3 ms-2">
+                    <button type="button" class="minus" (click)="decrementHours()">–</button>
+                    <input type="number" class="product-quantity"
+                        [value]="ticketForm.get('estimationDurationMinutes.estimation_duration_hours')?.value"
+                        [min]="0" [max]="24" readonly>
+                    <button type="button" class="plus" (click)="incrementHours()">+</button>
+                </div>
+                <label class="align-bottom">M:</label>
+                <div class="input-step step-secondary col-lg-3 ms-2">
+                    <button type="button" class="minus" (click)="decrementMinutes()">–</button>
+                    <input type="number" class="product-quantity"
+                        [value]="ticketForm.get('estimationDurationMinutes.estimation_duration_minutes')?.value"
+                        [min]="0" [max]="60" readonly>
+                    <button type="button" class="plus" (click)="incrementMinutes()">+</button>
+                </div>
+                <!-- ... other form fields ... -->
+
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer bg-primary">
+    <div class="hstack gap-2 justify-content-end">
+        <button type="button" class="btn btn-ghost-light" data-bs-dismiss="modal"
+            (click)="closeModal()"><i class="ri-close-fill align-bottom"></i> Close</button>
+        <button type="submit" class="btn btn-light" id="addNewTodo" (click)=" SubmitTicket()">{{ submSubTask ? 'Add
+            SubTask' : 'Add Ticket' }}</button>
+    </div>
+</div>

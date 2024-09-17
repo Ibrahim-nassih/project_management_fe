@@ -1,0 +1,140 @@
+<div class="row">
+    <div class="col-lg-12" >
+        <div class="card" style="min-height: 500px">
+            <div class="card-body">
+                <div id="customerList" *ngIf="isLoad ; else elseload">
+                    <div class="row" >
+                        <div class="col-sm-3" style="padding-right: 5px;padding-bottom: 15px" >
+                            <div class="d-flex justify-content-sm-start">
+                                <div class="input-group">
+                                    <input [ngbTooltip]="searchMessage" placement="top" (keyup.enter)="handelSearch()"  [(ngModel)]="search" type="text" class="form-control" placeholder="Search...">
+                                    <button (click)="handelSearch()" class="btn btn-outline-primary" type="button" id="button-addon2">
+                                        <em class="ri-search-line search-icon"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" (click)="refreshData()" class="btn btn-primary waves-effect waves-light" style="margin-right: 3px">
+                                <i class="ri-refresh-line"></i>
+                            </button>
+                            <button *ngIf="(listFilters ?? []).length > 0" type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#myModal"
+                                    (click)="openModal(content)"><em class="ri-filter-3-line"></em></button>
+                        </div>
+                    </div>
+                    <div style="overflow: scroll;">
+                        <table class="table table-nowrap">
+                            <thead class="bg-light text-muted">
+                            <tr>
+                                <th
+                                        *ngFor="let head of header"
+                                        scope="col"
+                                        id="{{ head }}"
+                                        [className]="'sort'"
+                                        (listsort)="onSort($event)"
+                                        listsortable="{{head}}"
+                                >
+                                    {{table+'.'+head | translate}}
+                                </th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody >
+                            <tr *ngFor="let data of dataTable">
+                                <ng-container *ngFor="let item of data; let i = index">
+                                    <td *ngIf="i !== 0">
+                                        <div [innerHTML]="item | custumTable: table"></div>
+                                    </td>
+                                </ng-container>
+                                <td style="font-size: 20px;text-align: center">
+                                    <div *ngIf="buttonList; else elsetypebutton" class="dropdown" ngbDropdown>
+                                        <a href="javascript:void(0);" class="arrow-none" role="button"
+                                           id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false"
+                                           ngbDropdownToggle>
+                                            <i class="mdi mdi-menu"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink2"
+                                            ngbDropdownMenu>
+                                            <li>
+                                                <div *ngFor="let button of buttons">
+                                                        <span style="font-size: 14px" class="dropdown-item" (click)="handelAction(data, button.action)">
+                                                            <em class="{{button.icon}}"></em> {{button.tooltip || "" | translate}}
+                                                        </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <ng-template #elsetypebutton>
+                                            <span *ngFor="let button of buttons">
+                                                <span ngbTooltip="{{button.tooltip || '' | translate}}" placement="top" (click)="handelAction(data, button.action)" [class]="button.color"><em [class]="button.icon"></em></span>
+                                            </span>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row ">
+                        <div class="col col-sm-6">
+                            <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                                <select (change)="sizeChange($event)" style="width: 100px;padding: 8px;" class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="size">
+                                    <option [value]="'10'">10 / Page</option>
+                                    <option [value]="'20'">20 / Page</option>
+                                    <option [value]="'30'">30 / Page</option>
+                                    <option [value]="'50'">50 / Page</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="text-sm-right float-sm-end listjs-pagination d-flex justify-content-sm-start">
+                                <ngb-pagination
+                                        [collectionSize]="total ? total : 0"
+                                        [(page)]="page"
+                                        [maxSize]="5"
+                                        [pageSize]="size"
+                                        [rotate]="true"
+                                        [boundaryLinks]="true"
+                                        (pageChange)="pageChange(page)"
+                                >
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #elseload>
+                    <div  class="spinner-grow text-primary load" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content role="document" let-modal >
+    <div class="modal-content" style="width: 600px">
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">{{'FILTERS.TITRE' | translate}}</h5>
+            <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body" >
+            <div class="row">
+                <div class="col-sm-12" *ngFor="let filter of filters | keyvalue" style="padding-left: 5px;padding-right: 5px;padding-bottom: 15px">
+                    <label class="form-label">{{'FILTERS.'+filter.key | translate}}</label>
+                    <select (change)="handelFilter($event,filter.key)"   class="form-select" aria-label=".form-select-lg example">
+                        <option>{{selectedFilter(filter.key)}}</option>
+                        <option  *ngFor="let item of filter.value" [value]="item" [label]="item"></option>
+                    </select>
+                </div>
+                <div class="col-sm-12">
+                    <button type="button" (click)="refreshData()" class="btn btn-primary waves-effect waves-light" style="margin-right: 3px;float: right">
+                        <i class="ri-refresh-line"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+

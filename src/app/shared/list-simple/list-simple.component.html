@@ -1,0 +1,33 @@
+<table class="table table-nowrap" >
+    <thead>
+    <tr>
+        <th *ngFor="let column of columns">{{ column.name }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of data">
+        <td *ngFor="let column of columns">
+            <div [innerHTML]="item[column?.key + ''] | custumTable: table"></div>
+        </td>
+        <td style="font-size: 20px;text-align: center" *ngIf="buttons !== undefined && buttons.length > 0">
+            <div class="dropdown" ngbDropdown>
+                <a href="javascript:void(0);" class="arrow-none" role="button"
+                   id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false"
+                   ngbDropdownToggle>
+                    <i class="mdi mdi-menu"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink2"
+                    ngbDropdownMenu>
+                    <li>
+                        <div *ngFor="let button of buttons">
+                            <span style="font-size: 14px" class="dropdown-item" (click)="handelAction(data, button.action)">
+                                <em class="{{button.icon}}"></em> {{button.tooltip || "" | translate}}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

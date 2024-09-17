@@ -1,0 +1,30 @@
+<div class="modal-header bg-primary p-3">
+    <h5 class="modal-title text-white" id="exampleModalLabel">Add Members</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+        id="close-modal" (click)="closeModale()"></button>
+</div>
+<form (ngSubmit)="Addusers()" [formGroup]="memberForm" class="tablelist-form" autocomplete="off">
+    <div class="modal-body">
+        <div class="row g-3" *ngIf="usersSelected$ | async as users">
+            <div class="col-lg-12">
+                <div>
+                    <label for="taginput-choices" class="form-label">users</label>
+                    <ng-select [items]="transformedUsers" [multiple]="true" formControlName="users"
+                    bindValue="value" bindLabel="label" [ngClass]="{ 'is-invalid': submitted && form['users'].errors }"></ng-select>
+          <div *ngIf="submitted && form['users'].errors" class="invalid-feedback" align="left">
+            <div *ngIf="form['users'].errors['required']">User is required</div>
+          </div>
+          
+                </div>
+            </div>
+        </div>
+        <!--end row-->
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                (click)="closeModale()">Close</button>
+            <button type="submit" class="btn btn-primary" id="add-btn" [disabled]="!memberForm.valid">Add members</button>
+        </div>
+    </div>
+</form>

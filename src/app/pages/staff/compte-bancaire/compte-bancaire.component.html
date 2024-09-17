@@ -1,0 +1,64 @@
+<form [formGroup]="compteBancaireForm" style="margin-bottom: 30px">
+    <div class="row">
+        <div class="col-sm-3">
+            <label for="nom" class="form-label">Nom de la Banque</label>
+            <input placeholder="Nom de la Banque" class="form-control" id="nom" formControlName="nomBanque"
+                   [ngClass]="{'is-invalid': handelError('nomBanque')}" >
+            <span style="color: red" *ngIf="handelError('nomBanque')">Please provide a valid name.</span>
+        </div>
+        <div class="col-sm-3">
+            <label for="pays" class="form-label">Pays de la Banque</label>
+            <input [ngClass]="{'is-invalid': handelError('paysBanque')}" placeholder="Pays de la Banque" class="form-control" id="pays" formControlName="paysBanque">
+            <span style="color: red" *ngIf="handelError('paysBanque')">Please provide a valid pays.</span>
+        </div>
+        <div class="col-sm-3">
+            <label for="rip" class="form-label">RIB</label>
+            <input [ngClass]="{'is-invalid': handelError('rib')}" placeholder="RIB" class="form-control" id="rip" formControlName="rib">
+            <span style="color: red" *ngIf="handelError('rib')">Please provide a valid rib.</span>
+        </div>
+        <div class="col-sm-2">
+            <label style="visibility: hidden;" class="form-label">ffd</label>
+            <button [disabled]="isLoad" (click)="onSubmitForm()" type="button" class="form-control btn btn-primary ">Ajouter</button>
+        </div>
+    </div>
+</form>
+<table class="table table-nowrap">
+    <thead>
+    <tr>
+        <th>Banque</th>
+        <th>Pays</th>
+        <th>RIB</th>
+        <th>Etat</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  *ngFor="let compte of comptesBancaires;let index = index">
+        <td>{{ compte.nomBanque }}</td>
+        <td>{{ compte.paysBanque }}</td>
+        <td>{{ compte.rib }}</td>
+        <td>
+            <span *ngIf="compte.state === 'ACTIVE';else elseactive" class="badge badge-soft-success">Actif</span>
+            <ng-template #elseactive>
+                <span class="badge badge-soft-danger">Inactif</span>
+            </ng-template>
+        </td>
+        <td>
+            <button *ngIf="compte.state === 'ACTIVE';else elseactiveli"  (click)="editState(compte)" type="button" class="btn btn-sm btn-outline-danger">
+                <span   style="font-size: 14px" class="dropdown-item">
+                <em class="mdi mdi-close-circle"></em> Désactiver
+            </span>
+            </button>
+
+            <ng-template #elseactiveli>
+                <button (click)="editState(compte)" type="button" class="btn btn-sm btn-outline-success">
+                    <span style="font-size: 14px" class="dropdown-item">
+                        <em class="mdi mdi-check-circle-outline"></em> Activer
+                    </span>
+                </button>
+
+            </ng-template>
+        </td>
+    </tr>
+    </tbody>
+</table>

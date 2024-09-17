@@ -1,0 +1,82 @@
+<form [formGroup]="contratForm" style="margin-bottom: 30px">
+    <div class="row">
+        <div style="margin-bottom: 15px;" class="col-sm-4">
+            <label for="dateSignature" class="form-label">Date signature</label>
+            <input [ngClass]="{'is-invalid': handelError('dateSignature')}"
+                    placeholder="Date signature"
+                   class="form-control flatpickr-input" type="text" mwlFlatpickr id="dateSignature" formControlName="dateSignature">
+            <span style="color: red" *ngIf="handelError('dateSignature')">Please provide a valid date.</span>
+        </div>
+        <div style="margin-bottom: 15px;" class="col-sm-4">
+            <label for="dateDebutValidite" class="form-label">Date début validité</label>
+            <input [ngClass]="{'is-invalid': handelError('dateDebutValidite')}"
+                   placeholder="Date début validité"
+                   class="form-control flatpickr-input" type="text" mwlFlatpickr id="dateDebutValidite" formControlName="dateDebutValidite">
+            <span style="color: red" *ngIf="handelError('dateDebutValidite')">Please provide a valid date.</span>
+        </div>
+        <div style="margin-bottom: 15px;" class="col-sm-4">
+            <label for="typeContrat" class="form-label">Type de contrat</label>
+            <select (click)="enableContractDuration()" class="form-control" id="typeContrat" formControlName="typeContrat" [ngClass]="{'is-invalid': handelError('typeContrat')}">
+                <option value="cdd" label="CDD"></option>
+                <option value="cdi" label="CDI"></option>
+                <option value="stage" label="Stage"></option>
+            </select>
+            <span style="color: red" *ngIf="handelError('typeContrat')">Please provide a valid type.</span>
+        </div>
+        <div style="margin-bottom: 15px;" class="col-sm-4">
+            <label for="dureeContrat" class="form-label">Durée du contrat (en mois)</label>
+            <input placeholder="Durée du contrat (en mois)" type="number" class="form-control" [ngClass]="{'is-invalid': handelError('dureeContrat')}" formControlName="dureeContrat" id="dureeContrat"
+                   min="1"
+                   step="1" >
+            <span style="color: red" *ngIf="handelError('dureeContrat')">Veuillez preciser la durée de la convention</span>
+        </div>
+        <div style="margin-bottom: 15px;" class="col-sm-4">
+            <label for="periodeEssai" class="form-label">Période d'essai (en mois)</label>
+            <input placeholder="Période d'essai (en mois)" type="number" class="form-control" [ngClass]="{'is-invalid': handelError('periodeEssai')}" formControlName="periodeEssai" id="periodeEssai"
+                   min="1"
+                   step="1" >
+            <span style="color: red" *ngIf="handelError('periodeEssai')">Veuillez preciser la durée de la période d'essai</span>
+        </div>
+        <div style="margin-bottom: 15px;" class="col-sm-4">
+            <label for="salaire" class="form-label">Salaire net</label>
+            <input placeholder="Salaire net" type="number" class="form-control" [ngClass]="{'is-invalid': handelError('salaire')}" formControlName="salaire" id="salaire"
+                   min="1"
+                   step="1" >
+            <span style="color: red" *ngIf="handelError('salaire')">Veuillez preciser le salaire</span>
+        </div>
+        <div class="col-sm-12">
+            <button style="float: right;width: 100px;margin-top: 10px" (click)="onSubmitForm()" type="button" class="form-control btn btn-primary ">Ajouter</button>
+        </div>
+    </div>
+</form>
+<!--
+<form nz-form [formGroup]="contratForm" [nzLayout]="'vertical'">
+  <div nz-row [nzGutter]="8">
+
+  <div nz-row nzJustify="end" class="btw-row">
+    <div nz-col>
+      <button *ngIf="!editMode" nz-button nzType="primary" (click)="onSubmitForm()">
+        Ajouter
+      </button>
+      <button *ngIf="editMode" nz-button nzType="primary" (click)="onSubmitForm()">
+        Modifier
+      </button>
+      <button
+        style="margin-left: 2px;"
+        nzSize="small"
+        *ngIf="editMode"
+        nz-button
+        nzType="default"
+        nzShape="circle"
+        nz-tooltip
+        nzTooltipTitle="Sortir du mode modification"
+        (click)="clearForm()"
+      >
+        <i nz-icon nzType="close" nzTheme="outline"></i>
+      </button>
+    </div>
+  </div>
+</form>
+-->
+
+<app-list-simple (handelActionEmit)="handelAction($event)" [data]="contratPeronnel" [columns]="columns" [buttons]="buttons"></app-list-simple>

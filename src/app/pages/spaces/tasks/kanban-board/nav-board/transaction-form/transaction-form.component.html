@@ -1,0 +1,57 @@
+<div class="modal-header bg-primary p-3">
+    <h5 class="modal-title text-white" id="exampleModalLabel">Add Transaction</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+        id="close-modal" (click)="closeModal()"></button>
+</div>
+<form (ngSubmit)="AddTransaction()" [formGroup]="transactionForm" class="tablelist-form" autocomplete="off">
+    <div class="modal-body">
+
+
+        <div class="mb-3">
+            <label for="lead-title-input" class="form-label ">Transaction Name</label>
+
+            <input type="text" id="lead-title-input" class="form-control rounded-pill"
+                placeholder="Enter transaction name" formControlName="name">
+            <div *ngIf="submTran && transactionForm.controls['name'].invalid">
+                <div class="text-danger">Transaction name is required</div>
+            </div>
+
+        </div>
+
+        <div class="row g-4 ">
+            <div class="col-lg-6">
+                <label for="from_step-field" class="form-label">From Step</label>
+                <select class="form-control rounded-pill" data-choices data-choices-search-false
+                    id="from_step-field" formControlName="from_step">
+                    <option *ngFor="let step of steps" value="{{step.id}}" selected>
+                        {{step.name}}</option>
+                </select>
+                <div *ngIf="submTran && transactionForm.controls['from_step'].invalid">
+                    <div class="text-danger">This field is required</div>
+                </div>
+            </div>
+            <!--end col-->
+            <div class="col-lg-6">
+                <label for="to_step-field" class="form-label">To Step</label>
+                <select class="form-control rounded-pill" data-choices data-choices-search-false id="to_step-field"
+                    formControlName="to_step">
+                    <option *ngFor="let step of steps" value="{{step.id}}" selected>
+                        {{step.name}}</option>
+                </select>
+                <div *ngIf="submTran && transactionForm.controls['to_step'].invalid">
+                    <div class="text-danger">This field is
+                        required</div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                (click)="closeModal()">Close</button>
+            <button type="submit" class="btn btn-primary" id="add-btn">Add Transaction</button>
+        </div>
+    </div>
+</form>

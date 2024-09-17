@@ -1,0 +1,57 @@
+.drawer-container {
+  height: 100%;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  right: 0px;
+  overflow-x: hidden;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.close-button {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+  color: var(--vz-link-color);
+}
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 9999; /* Higher z-index to cover other content */
+  display: none; /* Initially hidden */
+}
+
+.drawer-overlay.active {
+  display: block; /* Show overlay when drawer is open */
+}
+
+.drawer-container.active {
+  width: var(--drawer-width, 0); /* Show drawer when it's open */
+}
+.title{
+  color: var(--vz-link-color);
+  float: left;
+  font-size: 20px;
+}
+.div-title{
+  position: absolute;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+

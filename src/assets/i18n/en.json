@@ -1,0 +1,305 @@
+{
+  "MENUITEMS": {
+    "SPACES" : {
+      "TEXT" : "Spaces",
+      "CHILD" : {}},
+    "DASHBOARD": {
+      "TEXT": "Tableaux de bord",
+      "CHILD": {
+        "BILAN-ACTIVITE": "Bilan de l'activité",
+        "PRODUCTIVITE-BAF" : "Productivité du BAF",
+        "ETABLISSEMENT" : "Etablissement",
+        "ADMISSIONS" : "Admissions",
+        "CHIFFRE-AFFAIRES" : "Chiffre d’affaires",
+        "ENCAISSEMENT" : "Encaissement",
+        "PEC" : "Prise en charge",
+        "RECAPITULATIF-HONORAIRES" : "Récapitulatif des honoraires",
+        "SITUATION-CHAMBRES" : "Situation Des Chambres",
+        "TAUX-OCCUPATION" : "Taux d’occupation",
+        "RECAP-CONSOMMATION-PHARMACIE" : "Recap consommation pharmacie",
+        "RECAP-ACHAT-PHARMACIE" : "Recap achats pharmacie"
+      }
+    },
+    "ALERTES": {
+      "TEXT": "Alertes",
+      "CHILD": {
+        "ACCORDS-RISQUE-EXPIRATION" : "Accords à risque d’expiration",
+        "PEC-NON-EXPEDIEES" : "PEC non expédiées",
+        "PEC-IMPAYEES-RECLAMER" : "PEC impayées à réclamer",
+        "ALERTES-HONORAIRES" : "Alertes des honoraires",
+        "ALERTES-BC-ECHUS" : "Alertes des BC échus",
+        "ALERTES-STOCK" : "Alertes de stock"
+      }
+    },
+    "LABORATOIRE": {
+      "TEXT": "Laboratoire",
+      "CHILD": {
+        "SUIVI-EXAMENS" : "Suivi des examens"
+      }
+    },
+    "PAIEMENT-PRESTATAIRES": {
+      "TEXT": "Paiement des prestataires",
+      "CHILD": {
+        "LIGNES-NON-REGLEES" : "Lignes non réglées",
+        "LIGNES-ELIGIBLES" : "Lignes éligibles",
+        "ENCOURS-VALIDATION" : "Encours de validation",
+        "REGLEMENTS-VALIDES" : "Règlements validés",
+        "FACTURES-REGLEES" : "Factures réglées"
+      }
+    },
+    "HONORAIRES-MEDECINS": {
+      "TEXT": "Honoraires des médecins",
+      "CHILD": {
+        "HONORAIRES-NON-REGLEES" : "Honoraires non réglés",
+        "HONORAIRES-ELIGIBLES" : "Honoraires éligibles",
+        "ENCOURS-VALIDATION" : "Encours de validation",
+        "HONORAIRES-VALIDES" : "Honoraires validés",
+        "HONORAIRES-REGLEES" : "Honoraires réglés"
+      }
+    },
+    "GESTION-DECAISSEMENTS" : {
+      "TEXT": "Gestion des décaissements",
+      "CHILD": {
+        "ACHATS-EQUIPEMENTS" : "Achats & équipements",
+        "FOURNISSEURS-PHARMACIE" : "Fournisseurs pharmacie",
+        "CHARGES-DIVERS" : "Charges divers"
+      }
+    },
+    "CENTER-RADIOLOGIE" : {
+      "TEXT" : "Centre de radiologie",
+      "CHILD" : {
+        "SUIVI-EXAMENS" : "Suivi des examens"
+      }
+    },
+    "ENCAISSEMENTS" : {
+      "TEXT" : "Encaissements",
+      "CHILD" : {
+        "REGIE-RECETTES" : "Régie de recettes",
+        "ORDRE-ENCAISSEMENT" : "Ordre d'encaissement",
+        "CAISSE" : "Caisse",
+        "ENCAISSEMENTS-VALIDES" : "Encaissements validés",
+        "CHEQUE-A-DATE" : "Chèque à date",
+        "ENCAISSEMENTS-ORGANISMES" :"Encaissements des organismes",
+        "REMISE-CHEQUE" : "Remise des chèque"
+      }
+    },
+    "PEC" : {
+      "TEXT" : "Prise en charge",
+      "CHILD" : {
+        "CHERCHER-PEC" : "Chercher une PEC",
+        "ADMISSIONS-SANS-DEMANDE" : "Admissions sans demande",
+        "PEC-ENCOURS" : "PEC en cours",
+        "PEC-REJETEES-POUR-COMLEMENTS" : "PEC rejetées pour complements",
+        "PEC-ACCOREES" : "PEC accordées",
+        "PEC-ELIGIBLES-EXPEDITION" : "PEC éligibles à expédition",
+        "PEC-PRETS-POUR-EXPEDITION" : "PEC prêts pour expédition",
+        "BORDEREAU-EXPEDITION" : "Bordereau d'expédition",
+        "PEC-EXPEDIEES-IMPAYEES" : "PEC expédiées impayées",
+        "PEC-ENCAISSES-PARTIELLEMENT" : "PEC encaissés partiellement",
+        "PEC-SOLDES" : "PEC soldés",
+        "PEC-REJETS-DEFINITIFS" : "PEC rejets définitifs",
+        "PEC-ANNULEES" : "PEC annulées"
+      }
+    },
+    "CONFIGURATION" : {
+      "TEXT" : "Setting",
+      "CHILD" : {
+        "FICHE-HOPITAL" : "Fiche de l'hôpital",
+        "ARCHITECTURE" : "Architecture",
+        "PERSONNEL" : "Personnel",
+        "MEDECINS" : "Médecins",
+        "GESTION-UTILISATEURS" : "Gestion des utilisateurs",
+        "ASSURANCES" : "Assurances",
+        "CONVENTIONS" : "Conventions",
+        "PRESTATIONS" : "Prestations",
+        "NOUVELLE-TARIFICATION-INTERN" : "Nouvelle tarification interne",
+        "LISTE-TARIFICATION" : "Liste des tarifications",
+        "TARIFICATION-SEJOUR" : "Tarification du séjour",
+        "PRESTATAIRES-EXTERNES" : "Prestataires Externes",
+        "COMPTES-ACTIVITE" : "Les comptes d'activité"
+      }
+    },
+    "ACHATS-EQUIPEMENTS" : {
+      "TEXT" : "Achats & équipements",
+      "CHILD" : {
+        "VALIDATION-BC" : "Validation des BC",
+        "MATERIELS-PRODUITS" : "Matériels & produits",
+        "FOURNISSEUR" : "Fournisseur",
+        "TARIFICATION-PRODUITS"  : "Tarification des produits",
+        "CREATION-BC-SUIVI-ACHAT" : "Création BC & suivi des achats",
+        "RECEPTION-COMMANDES" : "Réception des commandes",
+        "GESTION-STOCK" : "Gestion de stock",
+        "TRANSFERTS-INTER-SERVICES" : "Transferts inter-services"
+      }
+    },
+    "PHARMACIE" : {
+      "TEXT" : "Pharmacie",
+      "CHILD" : {
+        "VALIDATION-BC" : "Validation des BC",
+        "POINTS-STOCKAGE" : "Points de stockage",
+        "PRODUITS-PHARMACEUTIQUES" : "Produits pharmaceutiques",
+        "FOURNISSEUR" : "Fournisseur",
+        "TARIFICATION-ARTICLES" : "Tarification des articles",
+        "ACHATS-PHARMACIE" : "Achats pharmacie",
+        "RECEPTION-COMMANDES" : "Réception des commandes",
+        "GESTION-KITS" : "Gestion des kits",
+        "STOCK-PHARMACIE" : "Stock pharmacie",
+        "DOTATION-SERVICE" : "Dotation de service",
+        "ORDONNANCES-PATIENTS" : "Ordonnances des patients"
+      }
+    },
+    "PRE-ADMISSION" : {
+      "TEXT" : "Pré Admissions (RDV)",
+      "CHILD": {
+        "LISTE-RENDEZ-VOUS" : "Liste des rendez-vous",
+        "RDV-CONSULTATION" : "RDV de consultation",
+        "CHIRURGIE-PROGRAMMEE" : "Chirurgie programmée",
+        "PRE-HOSPITALISATION" : "Pré-Hospitalisation",
+        "PLANNING-AMBULATOIRE" : "Planning Ambulatoire",
+        "RDV-BIOLOGIE": "Rdv Biologie",
+        "RDV-RADIOLOGIE" : "Rdv Radiologie"
+      }
+    },
+    "ADMISSION": {
+      "TEXT" : "Admission",
+      "CHILD" : {
+        "PATIENTS" : "Patients",
+        "LISTES-ADMISSIONS" : "Listes des admissions",
+        "CONSULTATION-URGENCE" : "Consultation en urgence",
+        "CONSULTATION-EXTERNE" : "Consultation externe",
+        "HOSPITALISATION-MEDICALE" : "Hospitalisation médicale",
+        "HOSPITALISATION-CHIRURGICALE" : "Hospitalisation chirurgicale",
+        "AMBULATOIRE" : "Ambulatoire",
+        "RADIOLOGIE" : "Radiologie",
+        "BIOLOGIE" : "Biologie"
+      }
+    },
+    "SERVICE-SOINS" : {
+      "TEXT" : "Service des Soins",
+      "CHILD" : {
+        "GESTION-HOSPITALIERE" : "Gestion hospitalière",
+        "COMPTES-RENDUS-MEDICAUX" : "Comptes rendus médicaux",
+        "MODELES-COMPTE-RENDUS" : "Modèles Compte rendus",
+        "DOSSIERS-MEDICAUX" : "Dossiers médicaux",
+        "PLANNING-BLOC" : "Planning Du Bloc"
+      }
+    },
+    "EXTRACTION-STATISTIQUE-1" : {
+      "TEXT" : "Extractions & statistiques",
+      "CHILD" : {
+        "EXTRACTION-ADMISSIONS" : "Extraction des admissions",
+        "EXTRACTION-CHIFFRE-AFFAIRES" : "Extraction du chiffre d’affaires",
+        "CA-GENERE-PAR-MEDECIN" : "CA Généré par médecin",
+        "CA-PAR-MEDECIN-PRESTATION" : "CA par médecin & prestation",
+        "LIGNES-DES-FACTURES" : "Lignes des factures",
+        "EXTRACTION-DES-HONORAIRES" : "Extraction des honoraires",
+        "PAIEMENT-DES-PRESTATAIRES" : "Paiement des prestataires",
+        "SITUATION-DES-LABORATOIRES" : "Situation des laboratoires",
+        "SITUATION-DES-PRESTATAIRES" : "Situation des prestataires",
+        "RECAPITULATIFS-ENCAISSEMENTS-FACTURES" : "Récapitulatifs des encaissements des factures",
+        "EXTRACTION-DES-ENCAISSEMENTS" : "Extraction des encaissements",
+        "EXTRACTION-DES-PEC" : "Extractions des PEC",
+        "EXTRACTION-DES-BC-PHARMACIE" : "Extraction des BC pharmacie",
+        "ACHATS-LIVRAISONS-PHARMACIE" : "Achats & livraisons de pharmacie",
+        "EXTRACTION-STOCK-PHARMACIE" : "Extraction de stock pharmacie",
+        "HISTORIQUE-SEJOURS-PATIENTS" : "Historique des séjours des patients",
+        "HISTORIQUE-DOTATIONS" : "Historique des dotations",
+        "RESRESSEMENTS-INVENTAIRE" : "Redressements & inventaires",
+        "HISTORIQUE-DEPOTS" : "Historique des dépôts",
+        "CONSOMMATION-PATIENTS" : "Consommation des patients"
+      }
+    },
+    "EXTRACTION-STATISTIQUE-2" : {
+      "TEXT" : "Extractions & statistiques",
+      "CHILD" : {
+        "EXTRACTION-DES-ADMISSIONS" : "Extraction des admissions",
+        "EXTRACTION-CHIFFRE-AFFAIRES" : "Extraction du chiffre d’affaires",
+        "CA-GENERE-MEDECIN" : "CA Généré par médecin",
+        "CA-MEDECIN-PRESTATION" : "CA par médecin & prestation",
+        "LIGNES-FACTURES" : "Lignes des factures",
+        "EXTRACTION-DES-HONORAIRES" : "Extraction des honoraires",
+        "EXTRACTION-DES-HONORAIRES-TEST" : "Extraction des honoraires test",
+        "PAIEMENT-DES-PRESTATAIRES" : "Paiement des prestataires",
+        "SITUATION-DES-LABORATOIRES" : "Situation des laboratoires",
+        "SITUATION-DES-PRESTATAIRES" : "Situation des prestataires",
+        "RECAPITULATIFS-DES-ENCAISSEMENTS-DES-FACTURES" : "Récapitulatifs des encaissements des factures",
+        "EXTRACTION-DES-ENCAISSEMENTS" : "Extraction des encaissements",
+        "EXTRACTION-DES-PEC" : "Extractions des PEC",
+        "EXTRACTION-DES-PHARMACIE" : "Extraction des BC pharmacie",
+        "ACHATS-LIVRAISONS-DE-PHARMACIE" : "Achats & livraisons de pharmacie",
+        "EXTRACTION-DE-STOCK-PHARMACIE" : "Extraction de stock pharmacie",
+        "HISTORIQUE-DES-SEJOURS-DES-PATIENTS" : "Historique des séjours des patients",
+        "HISTORIQUE-DE-DOTATION" : "Historique des dotations",
+        "REDRESSEMENTS-AND-INVENTAIRES" : "Redressements & inventaires",
+        "HISTORIQUE-DES-DEPOTS" : "Historique des dépôts",
+        "CONSOMMATION-DES-PATIENTS" : "Consommation des patients"
+      }
+    },
+    "FACTURATION" : {
+      "TEXT" : "Facturation",
+      "CHILD" : {
+        "SITUATION-FINANCIER" : "Situation financière",
+        "NOUVEAU-DEVIS" : "Nouveau devis",
+        "GESTION-DEVIS" : "Gestion des devis",
+        "DOSSIER-ADMINISTRATIF" : "Dossier Administratif",
+        "LISTE-GLOBALE-FACTURES" : "Liste globale des factures",
+        "FACTURE-ENCOURS" : "Factures Encours",
+        "FACTURES-DISPATCHEES" : "Factures Dispatchées",
+        "FACTURES-VALIDEES" : "Factures Validées",
+        "FACTURES-CONTROLEES" : "Factures Contrôlées",
+        "FACTURES-COMPTABILISEES" : "Factures Comptabilisées",
+        "DOSSIERS-DE-REMBOURSEMENT" : "Dossiers de remboursement",
+        "NOTE-HONORAIRES" : "Note d'honoraires",
+        "ACTIVITE-FACTURATION" : "Activite Facturation"
+      }
+    },
+    "MORE" : "Plus"
+
+  },
+  "EROOR" : {
+    "PAGE-404-TITLE" : "SORRY,THIS PAGE DOESN'T EXIST ",
+    "PAGE-404-SUB-TITLE" : "The page you are looking for is not available !",
+    "BACK" : "Back"
+  },
+  "PERSONNEL" : {
+    "personnels.id" : "Id",
+    "p.libelle" : "Poste",
+    "e.nom" : "Nom",
+    "prenom" : "Prénom",
+    "email" : "Email",
+    "e.telephone" : "Téléphone",
+    "s.nom" : "Service",
+    "COMPTE-ACTIVE" : "Le compte bancaire a été activé avec succès",
+    "COMPTE-DESACTIVE" : "Le compte bancaire a été désactivé avec succès",
+    "ERROR-COMPTE-ACTIVE" : "Une erreur est survenue lors de l'activation du compte bancaire",
+    "ERROR-COMPTE-DESACTIVE" : "Une erreur est survenue lors de la désactivation du compte bancaire",
+    "ADD-COMPTE" : "Le compte bancaire a été ajouté avec succès",
+    "ERROR-ADD-COMPTE" : "Une erreur est survenue lors de l'ajout du compte bancaire",
+    "ADD-POSTE" : "Le poste a été ajouté avec succès.",
+    "ERROR-ADD-POSTE" : "Échec de l'ajout du poste. Veuillez réessayer ultérieurement"
+  },
+  "FILTERS": {
+    "TITRE" : "Affinez vos résultats en appliquant des filtres personnalisés",
+    "personnels.id" : "Id",
+    "p.libelle" : "Poste",
+    "e.nom" : "Nom",
+    "prenom" : "Prenom",
+    "email" : "Email",
+    "e.telephone" : "Télephone",
+    "s.nom" : "Service"
+  },
+  "TITLESEARCH" : "Vous pouvez faire une recherche en indiquant un des critères suivants : ",
+  "OTHER" : {
+    "LOAD-DATA" : "Les données ont été récupérées avec succès",
+    "ERROR-LOAD-DATA" : "Une erreur est survenue lors de la récupération des données !"
+  },
+  "BUTTONS" : {
+    "EDIT" : "Update",
+    "DELETE" : "Archiver",
+    "PROFIL" : "Profil",
+    "SERVICES-VISUALISER" : "Servcies à visualiser",
+    "LABORATOIRES-VISUALISER" : "Laboratoires à visualiser",
+    "COMPTE-BANCAIRE" : "Compte Bancaire",
+    "CONTRAT" : "Contrat"
+  }
+}

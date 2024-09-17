@@ -1,0 +1,28 @@
+.profile-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #58a0da; /* Fallback color */
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .initials {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+  }
+  .ng-select{
+    border:0px;
+    min-height: 0px;
+    border-radius: 0;
+}

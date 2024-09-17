@@ -1,0 +1,110 @@
+<div class="modal-header bg-primary p-3">
+    <h5 *ngIf="!sprintValid" class="modal-title text-white " id="exampleModalLabel">Create Sprint</h5>
+    <h5 *ngIf="sprintValid" class="modal-title text-white " id="exampleModalLabel">Tickets Sprint</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+        id="close-modal" (click)="closeModale()"></button>
+</div>
+<form *ngIf="!sprintValid" (ngSubmit)="AddSprint()" [formGroup]="SprintForm" class="tablelist-form"
+    autocomplete="off">
+    <div class="modal-body bg-light">
+        <div class="row g-3 bg-white border border-3 mx-2 my-2 px-3">
+            <div class="form-group">
+                <label for="name">Sprint Name <span class="text-danger">*</span></label>
+                <input type="text" id="name" formControlName="name" class="form-control"
+                    placeholder="Enter sprint name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description <span class="text-danger">*</span></label>
+                <textarea id="description" formControlName="description" class="form-control"
+                    placeholder="Enter sprint description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="start_date" class="form-label">Start Date <span class="text-danger">*</span></label>
+                <input class="form-control flatpickr-input" formControlName="start_date" type="text" mwlFlatpickr
+                    [altInput]="true" [convertModelValue]="false" [options]="{altFormat: 'F j, Y h:i K' }" readonly>
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label for="end_date" class="form-label">End Date <span class="text-danger">*</span></label>
+                <input class="form-control flatpickr-input" formControlName="end_date" type="text" mwlFlatpickr
+                    [minDate]='minDate' [altInput]="true" [convertModelValue]="true" [dateFormat]="'Y-m-d H:i:S'"
+                    [options]="{ enableTime: true, altFormat: 'F j, Y h:i K' }" placeholder="Select date">
+            </div>
+        </div>
+        <!--end row-->
+    </div>
+</form>
+
+<form *ngIf="sprintValid" [formGroup]="TicketForm">
+    <div class="modal-body bg-light">
+        <p class="h5 text-center">Try to drag and drop tickets for this sprint</p>
+        <div class="tasks-board mb-3 ms-4" id="kanbanboard">
+            <div class="tasks-list bg-white border border-3">
+                <div class="flex-grow-1">
+                    <h6 class="fs-14 text-uppercase fw-bold mb-3 ms-4 mt-2">Available Tickets <small
+                            class="badge bg-secondary align-bottom ms-1">{{countAvailableTickets}}</small></h6>
+                </div>
+                <ngx-simplebar style="max-height: 350px;" class="tasks px-0" id="available-ticket" [dndDropzone]
+                    dndEffectAllowed="move" (dndDrop)="onDropSprint($event, availableTickets,'selected-ticket')">
+                    <ul class="list-group">
+                        <ng-container *ngFor="let ticket of availableTickets">
+                            <div [dndDraggable]="ticket" dndEffectAllowed="move"
+                                (dndMoved)="onDraggedSprint(ticket, availableTickets)">
+                                <li class="list-group-item disabled" aria-disabled="true">
+                                    <div class="d-flex align-items-center">
+                                        <i [class]="getIconClass(ticket.ticket_type)" style="font-size: 16px;"></i>
+                                        <span class="ms-2"> {{ticket.title}}</span>
+                                    </div>
+                                </li>
+                            </div>
+                        </ng-container>
+                    </ul>
+                </ngx-simplebar>
+            </div>
+            <div class="tasks-list bg-white ms-4 border border-3">
+                <div class="flex-grow-1">
+                    <h6 class="fs-14 text-uppercase fw-bold mb-3 ms-4 mt-2">Selected tickets<small
+                            class="badge bg-secondary align-bottom ms-1">{{countSelectedTickets}}</small></h6>
+                </div>
+                <ngx-simplebar style="max-height: 350px;" class="tasks px-0" id="selected-ticket" [dndDropzone]
+                    dndEffectAllowed="move" (dndDrop)="onDropSprint($event, selectedTickets,'available-ticket')">
+                    <ul class="list-group ">
+                        <ng-container *ngFor="let ticket of selectedTickets">
+                            <div [dndDraggable]="ticket" dndEffectAllowed="move"
+                                (dndMoved)="onDraggedSprint(ticket, selectedTickets)">
+                                <li class="list-group-item disabled" aria-disabled="true">
+                                    <div class="d-flex align-items-center">
+                                        <i [class]="getIconClass(ticket.ticket_type)" style="font-size: 16px;"></i>
+
+                                        <span class="ms-2"> {{ticket.title}}</span>
+                                    </div>
+                                </li>
+                            </div>
+                        </ng-container>
+                    </ul>
+                </ngx-simplebar>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal-footer bg-primary">
+    <div class="hstack gap-2 justify-content-end">
+        <button type="button" class="btn btn-close-white" data-bs-dismiss="modal"
+            (click)="closeModale()"><i class="ri-close-fill align-bottom"></i> Close</button>
+        <button *ngIf="submitted" type="button" class="btn btn-outline-secondary btn-light btn-load">
+            <span class="d-flex align-items-center">
+                <span class="spinner-grow flex-shrink-0" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                <span class="flex-grow-1 ms-2">
+                    Loading...
+                </span>
+            </span>
+        </button>
+        <button *ngIf="!sprintValid && !submitted" type="submit" class="btn btn-light" id="addNewTodo"
+            (click)=" AddSprint()" [disabled]="!SprintForm.valid">Add sprint</button>
+        <button *ngIf="sprintValid && !submitted" type="submit" class="btn btn-light" id="addNewTodo"
+            (click)=" StartSprint()" [disabled]="selectedTickets.length<1">Start sprint</button>
+    </div>
+</div>

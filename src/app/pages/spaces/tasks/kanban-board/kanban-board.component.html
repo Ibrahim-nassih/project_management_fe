@@ -1,0 +1,61 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Kanban Board" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="card m-0 py-1 mb-2">
+    <app-nav-board [lead]="lead" style="display: contents;"></app-nav-board>
+</div><!--end card-->
+
+<div class="tasks-board mb-0" id="kanbanboard">
+    <!--start tasks-list-->
+    <div class="tasks-list" *ngFor="let status of orderedSteps | keyvalue">
+        <ngx-simplebar class="tasklist-header">
+            <div [id]="status.key" [dndDropzone] dndEffectAllowed="move"
+                (dndDrop)="reorderSteps($event,status,orderedSteps )">
+                <div class="dndPlaceholder" dndPlaceholderRef></div>
+                <ng-container>
+                    <div [dndDraggable]="status" dndEffectAllowed="move"
+                        (dndMoved)="onDraggedList(status,orderedSteps)">
+                        <div class="d-flex mb-1 mt-2 ms-3">
+                            <div class="flex-grow-1">
+                                <h6 class="fs-14 text-uppercase fw-semibold mb-0">{{ status.value }} <small
+                                        class="badge bg-info align-bottom ms-1 totaltask-badge">{{countTickets(status.value)}}</small>
+                                </h6>
+                            </div>
+
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </ngx-simplebar>
+        <ng-container *ngIf="ticketsState$ | async as state" [ngSwitch]="state.dataState">
+            <ng-container *ngSwitchCase="TicketsStateEnum.INITIAL">
+                <div class="p-2">Initial State</div>
+            </ng-container>
+            <ng-container *ngSwitchCase="TicketsStateEnum.LOADING">
+                <div class="p-2">loading ...</div>
+            </ng-container>
+            <ng-container *ngSwitchCase="TicketsStateEnum.ERROR">
+                <div class="p-2 text-danger">{{state.errorMessage}}</div>
+            </ng-container>
+            <ng-container *ngSwitchCase="TicketsStateEnum.LOADED"> </ng-container>
+
+        </ng-container>
+        <div>
+            <ngx-simplebar style="max-height: 470px;" class="px-0">
+                <div [id]="status.value" class="tasks" [dndDropzone] dndEffectAllowed="move"
+                    (dndDrop)="onDrop($event, taskStatusMap[status.value],status.value)">
+                    <div class="dndPlaceholder" dndPlaceholderRef></div>
+                    <ng-container *ngFor="let task of taskStatusMap[status.value]">
+                        <div [dndDraggable]="task" dndEffectAllowed="move"
+                            (dndMoved)="onDragged(task, taskStatusMap[status.value])">
+                            <!--<ng-template [ngTemplateOutlet]="TaskContent" [ngTemplateOutletContext]="{task:task}"> </ng-template>-->
+                            <app-task [task]="task" [taskOrBugTickets]="taskOrBugTickets" [epicTickets]="epicTickets"
+                                [lead]="lead" style="display: contents;"></app-task>
+                        </div>
+                    </ng-container>
+                </div>
+            </ngx-simplebar>
+        </div>
+
+    </div><!--end tasks-list-->
+</div><!--end task-board-->

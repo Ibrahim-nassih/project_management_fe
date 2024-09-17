@@ -1,0 +1,67 @@
+<div class="card-body my-0 py-1">
+    <div class="col-sm-auto hstack gap-2 float-end">
+        <div class="col-lg-auto">
+            <button type="button" class="btn btn-soft-info createTask add-btn float-end" data-bs-toggle="modal"
+                id="create-btn" data-bs-target="#createTask" (click)="openModal(content)"><i
+                    class="ri-add-fill align-bottom"></i> Add
+                ticket</button>
+        </div>
+        <button type="button" class="btn btn-light add-btn float-end" data-bs-toggle="modal" id="create-btn"
+            data-bs-target="#showModal" (click)="openModal(contentStep)"><i class="ri-add-line align-bottom me-1"></i>
+            Add column</button>
+        <button type="button" class="btn btn-light add-btn float-end" data-bs-toggle="modal" id="create-btn"
+            data-bs-target="#showModal" (click)="openModal(contentTransaction)"><i
+                class="ri-add-line align-bottom me-1"></i> Add transaction</button>
+        <button type="button" class="btn btn-light add-btn float-end" data-bs-toggle="modal" id="create-btn"
+            data-bs-target="#showModal" (click)="openModal(Memberscontent)"><i class="ri-add-line align-bottom me-1"></i> Add users</button>
+        <span class="dropdown" ngbDropdown>
+            <button class="btn btn-light add-btn float-end" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                <i></i>Manage Sprints
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" ngbDropdownMenu>
+                <li><a class="dropdown-item" href="javascript:void(0);">View sprints details</a></li>
+                <li><a class="dropdown-item btn add-btn" href="javascript:void(0);"
+                        (click)="openModalSprint(SprintConent)">Create Sprint</a></li>
+            </ul>
+        </span>
+        <span class="dropdown" ngbDropdown>
+            <button class="btn btn-light add-btn float-end" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                <i></i>Manage {{lead.name}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" ngbDropdownMenu>
+                <li><a class="dropdown-item" href="javascript:void(0);">View details</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">Update</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">Delete</a></li>
+            </ul>
+        </span>
+    </div>
+</div><!--end card-body-->
+
+<!-- Start step model-->
+<ng-template #contentStep role="document" let-modal>
+<app-step-form [lead]="lead" [steps]="steps" style="display: contents;"></app-step-form>
+</ng-template>
+<!-- end step model-->
+<!-- Start step model-->
+<ng-template #Memberscontent role="document" let-modal>
+    <app-add-members  style="display: contents;"></app-add-members>
+    </ng-template>
+    <!-- end step model-->
+
+<!-- start transaction model-->
+<ng-template #contentTransaction role="document" let-modal>
+<app-transaction-form [lead]="lead" [steps]="steps" [transactions]="transactions" style="display: contents;" ></app-transaction-form>
+</ng-template>
+<!-- end transaction modal-->
+
+<!-- start sprint modal-->
+<ng-template #SprintConent role="document" let-modal>
+<app-sprint-form [lead]="lead" [availableTickets]="Tickets_sprint" [steps]="steps" [minDate]="minDate" style="display: contents;"></app-sprint-form>
+</ng-template>
+
+<!--add ticket content-->
+<ng-template #content role="document" let-modal>
+<app-ticket-form [submSubTask]="submSubTask" [lead]="lead" [parentTicket]="parentTicket" style="display: contents;"></app-ticket-form>
+</ng-template>

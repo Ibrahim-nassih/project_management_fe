@@ -1,0 +1,328 @@
+<div class="card tasks-box ">
+    <div class="card-body py-1">
+        <div class="d-flex mb-1">
+            <h6 class="fs-15 mb-0 flex-grow-1 text-truncate task-title text-uppercase">
+                <i [class]="getIconClass" style="font-size: 16px;"></i>
+                <span> {{task.title}}</span>
+            </h6>
+            <div class="dropdown" ngbDropdown>
+                <a href="javascript:void(0);" class="text-muted arrow-none" id="dropdownMenuLink1"
+                    data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle><i class="ri-more-fill"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink1" ngbDropdownMenu>
+                    <li><a class="dropdown-item" href="tasks/details"><i
+                                class="ri-eye-fill align-bottom me-2 text-muted float-start"></i> View</a></li>
+                    <li><button class="dropdown-item" (click)="editModal(contentUpdate,task)"><i
+                                class="ri-edit-2-line align-bottom me-2 text-muted float-start"></i> Edit</button>
+                    </li>
+                    <li><a class="dropdown-item" data-bs-toggle="modal" (click)="confirm($event,task)"><i
+                                class="ri-delete-bin-5-line align-bottom me-2 text-muted float-start"></i>
+                            Delete</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-muted">{{task.description}}</p>
+        <div class="mb-1">
+            <div class="d-flex mb-1">
+                <div class="flex-grow-1">
+                    <h6 class="text-muted mb-0"><span class="text-secondary">{{totalProgress}}%</span>
+                    </h6>
+                </div>
+                <div class="flex-shrink-0">
+                    <span class="text-muted">Created: {{ task.created_at | dateAgo
+                        }}</span><!--<p>Created: {{task.created_at | date}}</p>-->
+                </div>
+            </div>
+            <div class="rounded-5">
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="40"
+                        [style]="{'width': stepProgressDone+'%'}" aria-valuemin="0" aria-valuemax="100">
+                        {{stepProgressDone}}%</div>
+                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                        [style]="{'width': progress+'%'}" aria-valuemin="0" aria-valuemax="100">
+                        {{progress}}%</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer border-top-dashed">
+        <div class="d-flex">
+            <div class=" fs-14 me-2">
+                <a class="rounded-circle bg-primary text-light text-uppercase align-bottom"
+                    style="width: 28px; height: 28px; display: flex; justify-content: center; align-items: center;"
+                    ngbTooltip="{{findUser?.username}}">
+                    {{ getProfile
+                    }}
+                </a>
+            </div>
+            <div *ngIf="task.parent_ticket" class="fs-14 text-truncate task-title text-uppercase me-2" style="max-width: 160px;">
+                <a href="javascript:void(0)" class="text-muted bg-light"
+                    (click)="editModal(contentUpdate,findTicket)">
+                    <i class="bx bxs-spreadsheet text-info align-bottom" style="font-size: 20px;"></i>
+                    <span> {{findTicket?.title}}</span>
+                </a>
+
+            </div>
+            <div class="fs-14 flex-grow-1 me-2" (click)="openModalSubtask(SubTaskContent)">
+                <a href="javascript:void(0)" class="text-muted">
+                    <i class="bx bx-sitemap" style="font-size: 18px;"></i>
+                    <span>{{countSubTasks}}</span>
+                    </a>
+            </div>
+            <div class="flex-shrink-0 ">
+
+                <div *ngIf="task.priority==='High'" class="col-sm-auto hstack gap-2">
+                    <i class="bx bxs-flag-alt text-danger align-bottom " style="font-size: 18px;"></i> <span>
+                    </span>
+                </div>
+                <div *ngIf="task.priority==='Medium'" class="col-sm-auto hstack gap-2 ">
+                    <i class="bx bxs-flag-alt text-warning align-bottom " style="font-size: 18px;"></i> <span>
+                    </span>
+                </div>
+                <div *ngIf="task.priority==='Low'" class="col-sm-auto hstack gap-2">
+                    <i class="bx bxs-flag-alt text-success align-bottom " style="font-size: 18px;"></i> <span>
+                    </span>
+                </div>
+            </div>
+
+
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->
+
+<!-- start update ticket model-->
+<ng-template #contentUpdate role="document" let-modal>
+    <div class="modal-header bg-primary p-3">
+        <h5 class="modal-title text-uppercase text-white" id="createTaskLabel">update Ticket</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" id="createTaskBtn-close"
+            aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div id="task-error-msg" class="alert alert-danger py-2"></div>
+
+        <form autocomplete="off" action="" id="creattask-form" (ngSubmit)="updateTicket()" [formGroup]="taskForm">
+            <input type="hidden" id="taskid-input" class="form-control">
+            <div class="mb-3">
+                <label for="task-title-input" class="form-label">Ticket Title</label>
+                <input type="text" id="task-title-input" class="form-control" placeholder="Enter ticket title"
+                    formControlName="title" [ngClass]="{ 'is-invalid': submitted && form['title'].errors }">
+                <div *ngIf="submitted && form['title'].errors" class="invalid-feedback" align="left">
+                    <div *ngIf="form['title'].errors['required']">Ticket Title is required</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="task-description" class="form-label">Ticket Description</label>
+                <textarea class="form-control" id="task-description" placeholder="Enter ticket description"
+                    formControlName="description"
+                    [ngClass]="{ 'is-invalid': submitted && form['description'].errors }"></textarea>
+                <div *ngIf="submitted && form['description'].errors" class="invalid-feedback" align="left">
+                    <div *ngIf="form['description'].errors['required']">Ticket Description is required</div>
+                </div>
+            </div><!--end col-->
+            <div *ngIf="!submSubTask" class="mb-3">
+                <label for="ticket_type-input" class="form-label">Ticket Type</label>
+                <ng-select *ngIf="!isEditMode" class="rounded-pill" placeholder="Select type" appearance="outline"
+                    [searchable]="false" [clearable]="false" labelForId="heroId" formControlName="ticket_type"
+                    [ngClass]="{ 'is-invalid': submitted && form['ticket_type'].errors }">
+                    <ng-option value="Task">
+                        <i class="bx bx-task text-primary align-bottom " style="font-size: 16px;"></i><span> Task</span>
+                    </ng-option>
+                    <ng-option value="Bug">
+                        <i class="bx bx-bug text-danger align-bottom " style="font-size: 16px;"></i> <span> Bug</span>
+                    </ng-option>
+                </ng-select>
+                <ng-select *ngIf="isEditMode" class="rounded-pill" placeholder="Select type" appearance="outline"
+                    [searchable]="false" [clearable]="false" labelForId="heroId" formControlName="ticket_type"
+                    [ngClass]="{ 'is-invalid': submitted && form['ticket_type'].errors }">
+                    <ng-option value="Epic">
+                        <i class="bx bxs-spreadsheet text-info align-bottom" style="font-size: 16px;"></i><span>
+                            Epic</span>
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="submitted && form['ticket_type'].errors" class="invalid-feedback" align="left">
+                    <div *ngIf="form['ticket_type'].errors['required']">Ticket Type is required</div>
+                </div>
+            </div>
+            <div *ngIf="!submSubTask && !isEditMode" class="mb-3">
+                <label for="assigned_to-field" class="form-label">Parent ticket</label>
+                <ng-select data-choices data-choices-search-false id="parent_ticket-field"
+                    formControlName="parent_ticket">
+                    <ng-option *ngFor="let data of epicTickets" [value]="data.id" selected>
+                        <i class="bx bxs-spreadsheet text-info align-bottom " style="font-size: 16px;"></i><span>
+                            {{data.title}}</span></ng-option>
+                </ng-select>
+            </div>
+            <div *ngIf="submSubTask" class="mb-3">
+                <div>
+                    <label for="assigned_to-field" class="form-label">Parent ticket</label>
+                    <ng-select class="rounded-pill" placeholder="Select type" appearance="outline" [searchable]="false"
+                        [clearable]="false" labelForId="heroId" formControlName="parent_ticket"
+                        [ngClass]="{ 'is-invalid': submitted && form['parent_ticket'].errors }">
+                        <ng-option *ngFor="let data of taskOrBugTickets" [value]="data.id" selected>
+                            <i [class]="IconClass(data.ticket_type)" style="font-size: 16px;"></i>
+
+                            <span class="ms-1"> {{data.title}}</span>
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="mb-3">
+
+                <label for="assigned_to-field" class="form-label">Assigned to</label>
+                <ng-select class="ng-select rounded-pill" placeholder="Select user" appearance="outline"
+                    [searchable]="true" [clearable]="true" labelForId="heroId" formControlName="assigned_to"
+                    [ngClass]="{ 'is-invalid': submitted && form['assigned_to'].errors }">
+                    <ng-option *ngFor="let data of users" value="{{data.id}}">
+                        <ul class="link-inline mb-0 p-0">
+                            <li class="list-inline-item me-2">
+                                <a class="rounded-circle bg-primary text-light text-uppercase"
+                                    style="width: 26px; height: 26px; display: flex; justify-content: center; align-items: center;">
+                                    {{ getUserProfile(data) }}
+                                </a>
+                            </li>
+                            <li class="list-inline-item me-2">
+                                {{data.username}}</li>
+                        </ul>
+                    </ng-option></ng-select>
+                <div *ngIf="submitted && form['assigned_to'].errors" class="invalid-feedback" align="left">
+                    <div *ngIf="form['assigned_to'].errors['required']">Assigned_to is required</div>
+                </div>
+            </div>
+            <div class="row g-4 mb-3">
+                <div class="col-lg-6">
+                    <label for="task-status" class="form-label">Status</label>
+                    <select class="form-control" data-choices data-choices-search-false id="task-status-input"
+                        formControlName="status" [ngClass]="{ 'is-invalid': submitted && form['status'].errors }">
+                        <option value="{{edTask.status}}" selected>{{findStep(edTask.status)?.name}}</option>
+                        <option *ngFor="let step of getListSteps(edTask)" value="{{step.id}}">{{step.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && form['status'].errors" class="invalid-feedback" align="left">
+                        <div *ngIf="form['status'].errors['required']">Status is required</div>
+                    </div>
+                </div>
+                <!--end col-->
+                <div class="col-lg-6">
+                    <label for="priority-field" class="form-label">Priority</label>
+                    <ng-select class="ng-select bg-light" placeholder="Select priority" appearance="underline"
+                        [searchable]="false" [clearable]="false" labelForId="heroId" formControlName="priority">
+                        <ng-option value="High">
+                            <span><i class="bx bxs-flag-alt text-danger align-bottom " style="font-size: 16px;"></i>
+                                High</span>
+                        </ng-option>
+                        <ng-option value="Medium">
+                            <span><i class="bx bxs-flag-alt text-warning align-bottom " style="font-size: 16px;"></i>
+                                Medium</span>
+                        </ng-option>
+                        <ng-option value="Low">
+                            <span><i class="bx bxs-flag-alt text-success align-bottom " style="font-size: 16px;"></i>
+                                Low</span>
+                        </ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted && form['priority'].errors" class="invalid-feedback" align="left">
+                        <div *ngIf="form['priority'].errors['required']">Priority is required</div>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer bg-primary">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-ghost-light" data-bs-dismiss="modal"
+                (click)="modal.close('Close click')"><i class="ri-close-fill align-bottom"></i> Close</button>
+            <button type="submit" class="btn btn-light" id="addNewTodo" (click)=" updateTicket()"
+                [disabled]="!taskForm.dirty">{{ submSubTask ? 'Save SubTask' : 'Save Ticket' }}</button>
+        </div>
+    </div>
+</ng-template>
+
+<!-- start subtasks model-->
+<ng-template #SubTaskContent let-modal>
+    <div class="modal-header bg-primary p-3 ">
+        <h6 class="fs-14 text-uppercase fw-semibold mb-0 text-light">Sub Tasks <small
+                class="badge bg-success align-bottom ms-1 totaltask-badge">{{countSubTasks}}</small>
+        </h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+            id="close-modal" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <div class="modal-body bg-light">
+        <div class="todo-content position-relative px-4 mx-n4" id="todo-content">
+            <div class="todo-task" id="todo-task">
+                <div class="table-responsive">
+                    <table class="table bg-white table-striped align-middle table-nowrap mb-0 ">
+                        <thead class="bg-info text-light">
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Assigned to</th>
+                                <th scope="col">Priority</th>
+                                <th scope="col">Date created</th>
+                                <th scope="col" class="fw-medium">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let subTask of getSubTask">
+                            <tr>
+                                <td>{{subTask.title}}</td>
+                                <td>
+                                    <ul class="link-inline mb-0 p-0">
+                                        <li class="list-inline-item me-2">
+                                            <a class="rounded-circle bg-primary text-light text-uppercase"
+                                                style="width: 26px; height: 26px; display: flex; justify-content: center; align-items: center;">
+                                                {{ getSubTicketUser(subTask) }}
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item ">
+                                            {{findSubTicketUser(subTask.assigned_to).username}}</li>
+                                    </ul>
+                                </td>
+                                <td class="priority"><span class="badge bg-warning text-uppercase"
+                                        [ngClass]=" { 'bg-danger': subTask.priority === 'High', 'bg-success': subTask.priority === 'Low', 'bg-warning': subTask.priority === 'Medium'}">{{subTask.priority}}</span>
+                                </td>
+                                <td>{{subTask.created_at| dateAgo}}</td>
+                                <td>
+                                    <select class="form-select border border-0 bg-light" id="t-status" data-choices
+                                        data-choices-search-false aria-label="Default select example"
+                                        (change)="onStatusChange($event, subTask)">
+                                        <option value="{{subTask.status}}" selected>{{findStep(subTask.status)?.name}}
+                                        </option>
+                                        <option *ngFor="let step of getListSteps(subTask)" value="{{step.id}}">
+                                            {{step.name}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="hstack gap-3 flex-wrap">
+                                        <a href="javascript:void(0)" (click)="editModal(contentUpdate,subTask)"
+                                            class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                        <a href="javascript:void(0);" (click)="confirm($event,subTask)"
+                                            class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="py-4 mt-4 text-center" id="noresult" style="display: none;">
+                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                    colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px"></lord-icon>
+                <h5 class="mt-4">Sorry! No Result Found</h5>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer bg-primary">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-ghost-light" data-bs-dismiss="modal"
+                (click)="modal.close('Close click')">Close</button>
+            <button type="submit" class="btn btn-light" id="add-btn" (click)="addSubTask(content)">Add
+                Sub-Task</button>
+        </div>
+    </div>
+</ng-template>
+<!-- end subtasks model-->
+
+<!--add task content-->
+<ng-template #content role="document" let-modal>
+<app-ticket-form [submSubTask]="submSubTask" [lead]="lead" [parentTicket]="task"></app-ticket-form>
+</ng-template>

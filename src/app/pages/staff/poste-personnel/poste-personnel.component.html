@@ -1,0 +1,20 @@
+<form [formGroup]="posteForm" style="margin-bottom: 30px">
+    <div class="row">
+        <div class="col-sm-9">
+            <label for="libelle" class="form-label">Poste</label>
+            <input [ngClass]="{'is-invalid': handelError('libelle')}"
+                   placeholder="Date signature"
+                   class="form-control flatpickr-input" type="text" id="libelle" formControlName="libelle">
+            <span style="color: red" *ngIf="handelError('libelle')">Please provide a valid libelle.</span>
+        </div>
+        <div class="col-sm-3">
+            <label for="libelle" class="form-label" style="visibility: hidden;">Poste</label>
+            <button [disabled]="isLoad" style="float: right;width: 100px" (click)="onSubmitForm()" type="button" class="form-control btn btn-primary ">Ajouter</button>
+        </div>
+    </div>
+</form>
+<app-list-simple
+        (handelActionEmit)="handelAction($event)"
+        [data]="activePostes" [columns]="columnsPostPersonnel"
+        [buttons]="buttonsPostPersonnel">
+</app-list-simple>

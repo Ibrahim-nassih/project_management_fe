@@ -1,0 +1,12 @@
+<div class="drawer-overlay" [class.active]="isDrawerOpen"></div>
+<div class="drawer-container" [style.width]="width + 'px'" *ngIf="isDrawerOpen">
+    <div class="div-title">
+        <p class="fw-semibold title">{{title}}</p>
+        <em (click)="closeDrawer()"  class="mdi mdi-close close-button "></em>
+    </div>
+    <div style="margin: 20px;margin-top: 50px">
+        <ng-container *ngIf="template">
+            <ng-container *ngTemplateOutlet="template"></ng-container>
+        </ng-container>
+    </div>
+</div>
