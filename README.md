@@ -1,26 +1,26 @@
-# LeadSync Frontend
+# project management Frontend
 
-LeadSync is a web application for project management and bug tracking implemented with Django and Angular.
+web application for project management and bug tracking implemented with Django and Angular.
 
 ## Getting Started
 
 To start using LeadSync, follow these steps:
 
 1. Clone the backend repository:
-- git clone https://github.com/Ibrahim-nassih/leadSync_Backend.git
+- git clone https://github.com/Ibrahim-nassih/project_management_be.git
 
 2. Clone the frontend repository:
-- git clone https://github.com/Ibrahim-nassih/leadSync_Frontend.git
+- git clone https://github.com/Ibrahim-nassih/project_management_fe.git
 
 3. Navigate to the frontend directory:
-- cd leadSync_Frontend
+- cd project_management_fe
 
 4. Install Angular dependencies:
 - npm install
 
 ## Authentication with Keycloak
 
-LeadSync uses Keycloak for authentication. Keycloak is an open-source Identity and Access Management solution that ensures secure access to the application.
+this app uses Keycloak for authentication. Keycloak is an open-source Identity and Access Management solution that ensures secure access to the application.
 
 ### Setting Up Keycloak
 
@@ -48,8 +48,8 @@ export class Env {
 
 ```
 ## Author
-LeadSync frontend is authored by Ibrahim Nassih.
+project management frontend is authored by Ibrahim Nassih.
 
 ## Visuals
-Watch a demo of LeadSync:
-[![Video Demo](https://img.youtube.com/vi/PZOanoZQVbM/0.jpg)](https://www.youtube.com/watch?v=PZOanoZQVbM)
+Watch a demo of project management:
+[![Video Demo](https://img.youtube.com/vi/PZOanoZQVbM/0.jpg)](https://youtu.be/_oMaxKaIThA)
